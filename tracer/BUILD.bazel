@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "tracer",
+    srcs = ["tracer.go"],
+    importpath = "monorepo/src/review_service/tracer",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/libs/log",
+        "//src/libs/tracer",
+        "//src/review_service/configs",
+        "@com_github_opentracing_opentracing_go//:opentracing-go",
+        "@com_github_uber_jaeger_lib//metrics/expvar",
+    ],
+)

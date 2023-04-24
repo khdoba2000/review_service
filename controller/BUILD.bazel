@@ -1,0 +1,35 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "controller",
+    srcs = ["controller.go"],
+    importpath = "monorepo/src/review_service/controller",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/libs/log",
+        "//src/review_service/entity",
+        "//src/review_service/pkg/utils",
+        "//src/review_service/storage/repo",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_lib_pq//:pq",
+        "@com_github_opentracing_opentracing_go//:opentracing-go",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_test(
+    name = "controller_test",
+    srcs = ["controller_test.go"],
+    embed = [":controller"],
+    deps = [
+        "//src/libs/constants",
+        "//src/libs/log",
+        "//src/review_service/entity",
+        "//src/review_service/mocks",
+        "@com_github_golang_mock//gomock",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_stretchr_testify//assert",
+        "@org_uber_go_zap//:zap",
+        "@org_uber_go_zap//zapcore",
+    ],
+)

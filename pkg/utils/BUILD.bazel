@@ -1,0 +1,11 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "utils",
+    srcs = [
+        "utils.go",
+        "vaildation.go",
+    ],
+    importpath = "monorepo/src/review_service/pkg/utils",
+    visibility = ["//visibility:public"],
+)

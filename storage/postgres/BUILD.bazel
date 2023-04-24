@@ -1,0 +1,29 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "postgres",
+    srcs = ["review.go"],
+    importpath = "monorepo/src/review_service/storage/postgres",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/libs/constants",
+        "//src/review_service/entity",
+        "@io_gorm_gorm//:gorm",
+    ],
+)
+
+go_test(
+    name = "postgres_test",
+    srcs = ["review_test.go"],
+    embed = [":postgres"],
+    deps = [
+        "//src/libs/constants",
+        "//src/review_service/entity",
+        "@com_github_data_dog_go_sqlmock//:go-sqlmock",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_test_go_testify//require",
+        "@com_github_test_go_testify//suite",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
+    ],
+)

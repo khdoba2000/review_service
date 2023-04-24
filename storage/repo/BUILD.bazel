@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "repo",
+    srcs = ["review.go"],
+    importpath = "monorepo/src/review_service/storage/repo",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/review_service/configs",
+        "//src/review_service/entity",
+        "//src/review_service/pkg/db",
+        "//src/review_service/storage/postgres",
+    ],
+)

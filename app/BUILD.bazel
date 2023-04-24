@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "app",
+    srcs = ["app.go"],
+    importpath = "monorepo/src/review_service/app",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/libs/log",
+        "//src/review_service/configs",
+        "//src/review_service/controller",
+        "//src/review_service/handler/rpc",
+        "//src/review_service/storage/repo",
+        "//src/review_service/tracer",
+        "@org_uber_go_fx//:fx",
+        "@org_uber_go_fx//fxevent",
+        "@org_uber_go_zap//:zap",
+        "@org_uber_go_zap//zapcore",
+    ],
+)

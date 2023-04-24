@@ -1,0 +1,42 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "rpc",
+    srcs = ["handler.go"],
+    importpath = "monorepo/src/review_service/handler/rpc",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/idl/review_service",
+        "//src/libs/constants",
+        "//src/libs/log",
+        "//src/libs/utils",
+        "//src/review_service/configs",
+        "//src/review_service/controller",
+        "//src/review_service/entity",
+        "@com_github_opentracing_contrib_go_grpc//:go-grpc",
+        "@com_github_opentracing_opentracing_go//:opentracing-go",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_test(
+    name = "rpc_test",
+    srcs = ["handler_test.go"],
+    embed = [":rpc"],
+    deps = [
+        "//src/idl/review_service",
+        "//src/libs/log",
+        "//src/review_service/configs",
+        "//src/review_service/entity",
+        "//src/review_service/mocks",
+        "@com_github_golang_mock//gomock",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_opentracing_opentracing_go//:opentracing-go",
+        "@com_github_test_go_testify//assert",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_uber_go_zap//:zap",
+        "@org_uber_go_zap//zapcore",
+    ],
+)
